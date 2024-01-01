@@ -1,0 +1,34 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1> Quiz topics </h1>
+<div class="container bg-light pt-2 pb-3 rounded">
+
+    <% if (it.errors && it.errors.length > 0) { %>
+      <ul>
+          <% it.errors.forEach((error) => { %>
+                  <div class="alert alert-info" role="alert">
+                      <%= error %>
+                  </div>
+          <% }); %>
+      </ul>
+    <% } %>
+
+    <% if (it.topics && it.topics.length > 0) { %>
+
+    <div class="list-group">
+    <% it.topics.forEach(topic => { %>
+        <div class="container">
+            <a href="/quiz/<%= topic.id %>" class="list-group-item list-group-item-action">
+                <%= topic.name %>
+            </a>
+        </div>
+
+    <% }); %>
+    </div>
+</div>
+
+<% } else { %>
+
+<p>None available.</p>
+
+<% } %>

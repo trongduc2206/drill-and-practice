@@ -1,0 +1,17 @@
+<% layout("./layouts/layout.eta") %>
+
+
+<h2> Your answer to question "<%= it.question.question_text %>" is </h2>
+<% if( it.correct ) { %> 
+    <h1 class="text-success">Correct!</h1>
+    <a href="/quiz/<%= it.topic.id %>" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Next question</a>
+<% } else { %>
+    <h1 class="text-danger">Incorrect!</h1>
+    <h2>
+    <small class="text-body-secondary">
+    The correct option was 
+    </small>
+    "<%= it.correctOption %>"
+    </h2>
+    <a href="/quiz/<%= it.topic.id %>" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Next question</a>
+<% } %>

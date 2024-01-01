@@ -1,0 +1,73 @@
+<% layout("./layouts/layout.eta") %>
+<h1 class=" mb-5">
+Topics
+</h1>
+
+<% if (it.errors && it.errors.length > 0) { %>
+<ul>
+    <% it.errors.forEach((error) => { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+    <% }); %>
+</ul>
+<% } %>
+
+<% if( it.user && it.user.admin ) { %>
+    <div class="container bg-light pb-2 mb-5 rounded">
+        <h2>
+            <small class="text-body-secondary"> Create new topic </small>
+        </h2>
+        <div class="container">
+            <form class="mb-3" method="POST" action="/topics">
+                <label class="form-label">Topic name</label>
+                <input class="form-control" type="text" name="name" placeholder="topic name" <% if( it.topic ) { %> value="<%= it.topic %> " <% } %> />
+                <div class="form-text mb-1">
+                    Your topic name must be at least 1 characters long.
+                </div>
+                <input class="btn btn-primary" type="submit" value="Create" />
+            </form>
+        </div>
+    </div>
+<% } %>
+
+
+
+
+<div class="container bg-light pt-2 pb-3 rounded">
+    <h2>
+        <small class="text-body-secondary"> Topic List </small>
+    </h2>
+
+    <% if (it.topics && it.topics.length > 0) { %>
+
+    <div class="list-group">
+    <% it.topics.forEach(topic => { %>
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <a href="/topics/<%= topic.id %>" class="list-group-item list-group-item-action">
+                        <%= topic.name %>
+                    </a>
+                </div>
+                
+                <% if( it.user && it.user.admin ) { %>
+                <div class="col-4"> 
+                    <form class="mb-3" method="POST" action="/topics/<%= topic.id %>/delete">
+                        <input class="btn btn-primary" type="submit" value="Delete"/>
+                    </form>
+                </div>
+                <% } %>
+                
+            </div>
+        </div>
+
+    <% }); %>
+    </div>
+</div>
+
+<% } else { %>
+
+<p>None available.</p>
+
+<% } %>
