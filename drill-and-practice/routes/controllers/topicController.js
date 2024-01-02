@@ -48,22 +48,25 @@ const addTopic = async ( context ) => {
     }
 };
 
-const deleteTopic = async ({request, response, params}) => {
-    const topicId = params.id;
+// const deleteTopic = async ({request, response, params}) => {
+const deleteTopic = async ({request, response, params, user}) => {
+    if(user && user.admin) {
+        const topicId = params.id;
 
-    const questionsOfTopic = await questionService.getByTopic(topicId);
-    
-    if(questionsOfTopic) {
-        for(var i = 0; i < questionsOfTopic.length; i++) {
-            await answerService.deleteByQuestion(questionsOfTopic[i].id);
-            await answerOptionService.deleteByQuestion(questionsOfTopic[i].id);
+        const questionsOfTopic = await questionService.getByTopic(topicId);
+        
+        if(questionsOfTopic) {
+            for(var i = 0; i < questionsOfTopic.length; i++) {
+                await answerService.deleteByQuestion(questionsOfTopic[i].id);
+                await answerOptionService.deleteByQuestion(questionsOfTopic[i].id);
+            }
         }
+    
+        await questionService.deleteByTopic(topicId);
+    
+        await topicService.deleteTopic(topicId);
+        response.redirect("/topics"); 
     }
-
-    await questionService.deleteByTopic(topicId);
-
-    await topicService.deleteTopic(topicId);
-    response.redirect("/topics");
 }
 
 const showTopicSpecific = async ({ render, request, response, params }) => {
