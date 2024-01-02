@@ -51,12 +51,12 @@ const addTopic = async ( context ) => {
 const deleteTopic = async ({request, response, params}) => {
     const topicId = params.id;
 
-    const questionsOfTopic = questionService.getByTopic(topicId);
+    const questionsOfTopic = await questionService.getByTopic(topicId);
     
     if(questionsOfTopic) {
         for(var i = 0; i < questionsOfTopic.length; i++) {
-            await answerOptionService.deleteByQuestion(questionsOfTopic[i].id);
             await answerService.deleteByQuestion(questionsOfTopic[i].id);
+            await answerOptionService.deleteByQuestion(questionsOfTopic[i].id);
         }
     }
 
