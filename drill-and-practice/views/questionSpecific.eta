@@ -3,7 +3,7 @@
 <p class="mb-9"><a href="/topics/<%= it.topic.id %>" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Topic: <%= it.topic.name %></a></p>
 
 
-<h1>
+<h1 class="mb-5">
 <small class="text-body-secondary"> Question: </small> <%= it.question.question_text %>
 </h1>
 <% if( it.user ) { %>
@@ -18,58 +18,61 @@
       </ul>
     <% } %>
 
+    <div class="container bg-light pt-2 pb-2 mb-5 rounded">
+        <h2>
+        <small class="text-body-secondary">Add an answer option</small>
+        </h2>
 
-    <h2>
-    Add an answer option
-    </h2>
-
-    <form class="mb-3" method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id%>/options">
-      <input class="form-check-input" type="checkbox" value="" name="is_correct">
-      <label class="form-check-label" for="flexCheckDefault">
-       Correct
-      </label>
-      <% /* <input class="form-control" type="text" name="option_text" placeholder="option text" <% if( it.option ) { %> value="<%= it.option %>" <% } %> /> */ %>
-      <textarea class="form-control" name="option_text"><%if(it.option){%><%=it.option%><%}%></textarea>
-      <div class="form-text">
-      Your option must be at least 1 character long.
-      </div>
-      <input class="btn btn-primary" type="submit" value="Add" />
-    </form>
+        <form class="mb-3" method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id%>/options">
+        <input class="form-check-input" type="checkbox" value="" name="is_correct">
+        <label class="form-check-label" for="flexCheckDefault">
+        Correct
+        </label>
+        <% /* <input class="form-control" type="text" name="option_text" placeholder="option text" <% if( it.option ) { %> value="<%= it.option %>" <% } %> /> */ %>
+        <textarea class="form-control" name="option_text"><%if(it.option){%><%=it.option%><%}%></textarea>
+        <div class="form-text mb-1">
+        Your option must be at least 1 character long.
+        </div>
+        <input class="btn btn-primary" type="submit" value="Add" />
+        </form>
+    </div>
 <% } else { %>
     <p> Please login to add your question </p>
 <% } %>
 
-<h2> 
-Answer options
-</h2>
-<% if (it.options && it.options.length > 0) { %>
+<div class="container bg-light pt-2 pb-3 rounded">
+    <h2> 
+        <small class="text-body-secondary">Answer options</small>
+    </h2>
+    <% if (it.options && it.options.length > 0) { %>
 
-    <div class="list-group">
-    <% it.options.forEach(option => { %>
-        <div class="form-check">
-            <div class="row">
-                <div class="col-8">
-                    <input class="form-check-input" type="checkbox" value="" <% if(option.is_correct) { %> checked <% } %> disabled>
-                    <label>
-                    <%= option.option_text %>
-                    </label>
-                </div>
-                <div class="col-4">
-                    <form class="mb-3" method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete">
-                        <input class="btn btn-primary" type="submit" value="Delete option"/>
-                    </form>
+        <div class="list-group">
+        <% it.options.forEach(option => { %>
+            <div class="form-check">
+                <div class="row">
+                    <div class="col-8">
+                        <input class="form-check-input" type="checkbox" value="" <% if(option.is_correct) { %> checked <% } %> disabled>
+                        <label>
+                        <%= option.option_text %>
+                        </label>
+                    </div>
+                    <div class="col-4">
+                        <form class="mb-3" method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete">
+                            <input class="btn btn-primary" type="submit" value="Delete option"/>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    <% }); %>
-    </div>
-
-    <% } else { %>
-        <div class="container">
-            <p>There are no answer options</p>
-            <form class="mb-3" method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
-                <input class="btn btn-primary" type="submit" value="Delete question"/>
-            </form>
+        <% }); %>
         </div>
 
-<% } %>
+        <% } else { %>
+            <div class="container">
+                <p>There are no answer options</p>
+                <form class="mb-3" method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
+                    <input class="btn btn-primary" type="submit" value="Delete question"/>
+                </form>
+            </div>
+
+    <% } %>
+</div>

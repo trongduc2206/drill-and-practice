@@ -3,9 +3,10 @@
 <p class="mb-9"><a href="/topics" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Back to topic list</a></p>
 
 
-<h1>
+<h1 class="mb-5">
 Topic: <%= it.topic.name %>
 </h1>
+<div class="container bg-light pt-2 pb-2 mb-5 rounded">
 <% if( it.user ) { %>
 
     <% if (it.errors && it.errors.length > 0) { %>
@@ -18,9 +19,9 @@ Topic: <%= it.topic.name %>
       </ul>
     <% } %>
 
-
+    
     <h2>
-    Add a question
+      <small class="text-body-secondary">Add a question</small>
     </h2>
 
     <form class="mb-3" method="POST" action="/topics/<%= it.topic.id %>/questions">
@@ -29,7 +30,7 @@ Topic: <%= it.topic.name %>
       <textarea class="form-control" name="question_text" ><%if(it.question){%><%=it.question %><%}%></textarea>
         <% /* <% if( it.question ) { %> <%= it.question %> <% } %> */ %>
       
-      <div class="form-text">
+      <div class="form-text mb-1">
       Your question must be at least 1 character long.
       </div>
       <input class="btn btn-primary" type="submit" value="Add!" />
@@ -37,22 +38,25 @@ Topic: <%= it.topic.name %>
 <% } else { %>
     <p> Please login to add your question </p>
 <% } %>
-
-<h2> 
-Questions
-</h2>
-<% if (it.questions && it.questions.length > 0) { %>
-
-<div class="list-group">
-<% it.questions.forEach(question => { %>
-    <a href="/topics/<%= it.topic.id %>/questions/<%= question.id %>" class="list-group-item list-group-item-action">
-        <%= question.question_text %>
-    </a>
-<% }); %>
 </div>
 
-<% } else { %>
+<div class="container bg-light pt-2 pb-3 rounded">
+  <h2> 
+  <small class="text-body-secondary">Questions</small>
+  </h2>
+  <% if (it.questions && it.questions.length > 0) { %>
 
-<p>None available.</p>
+  <div class="list-group">
+  <% it.questions.forEach(question => { %>
+      <a href="/topics/<%= it.topic.id %>/questions/<%= question.id %>" class="list-group-item list-group-item-action">
+          <%= question.question_text %>
+      </a>
+  <% }); %>
+  </div>
 
-<% } %>
+  <% } else { %>
+
+  <p>None available.</p>
+
+  <% } %>
+</div>
