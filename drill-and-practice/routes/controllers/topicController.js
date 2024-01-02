@@ -17,8 +17,6 @@ const addTopic = async ( context ) => {
     const params = await body.value;
     
     const topicName = params.get("name");
-    console.log(`topic name is ${topicName}`);
-    console.log(`topic length is ${topicName.length}`);
 
     const errorData = {
         errors: [],

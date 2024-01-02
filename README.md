@@ -7,10 +7,11 @@ This a web application that is used for repeated practice of learned content. Th
 User [docker-compose](https://docs.docker.com/compose/install/) to run the whole application (database included).
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 Then the application launches on the port 7777 by default
+
 You can access application by localhost:7777
 
 ## Online location

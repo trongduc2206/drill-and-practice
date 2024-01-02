@@ -8,7 +8,6 @@ const addOption = async ({request, response, render, params}) => {
     const paramsBody = await body.value;
 
     // const question = paramsBody.get("question_text");
-    console.log(paramsBody);
 
     const option = paramsBody.get('option_text')
     
@@ -50,7 +49,6 @@ const addOption = async ({request, response, render, params}) => {
         data.errors.push("Option must contain at least 1 character");
         render("questionSpecific.eta", data)
     } else {
-        // console.log(`is correct: ${isCorrect}`)
         await answerOptionService.addAnswerOption(questionId, option, isCorrect)
         response.redirect(`/topics/${topicId}/questions/${questionId}`)
     }

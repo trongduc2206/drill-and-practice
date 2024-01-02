@@ -6,8 +6,9 @@
 <ul>
     <% Object.keys(it.errors).forEach((attribute) => { %>
         <% Object.values(it.errors[attribute]).forEach((err) => { %>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <%= err %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <% /* <li><%= err %></li> */ %>
         <% }); %>
@@ -17,9 +18,9 @@
 
 <form class="mb-3" method="POST" action="/auth/register">
   <label class="form-label">Email</label>
-  <input class="form-control" type="email" name="email" placeholder="abc@gmail.com" value="<%= it.email %>"/>
+  <input class="form-control" type="email" name="email" placeholder="abc@gmail.com" <% if( it.email ) { %> value="<%= it.email %>" <% } %> />
   <label class="form-label">Password</label>
-  <input class="form-control" type="password" name="password" placeholder="1234" value="<%= it.password %>" />
+  <input class="form-control" type="password" name="password" placeholder="1234" <% if( it.password ) { %> value="<%= it.password %>" <% } %> />
   <div class="form-text">
     Your password must be at least 4 characters long.
   </div>

@@ -17,7 +17,6 @@ const chooseQuestion = async ({request, response, params, render}) => {
     if(questions && questions.length > 0) {
         const randomIndex = Math.floor(Math.random() * questions.length);
         const randomQuestion = questions[randomIndex];
-        console.log("redirect to quiz question");
         response.redirect(`/quiz/${topicId}/questions/${randomQuestion.id}`)
     } else {
         const topic = await topicService.getById(topicId);
@@ -30,7 +29,6 @@ const chooseQuestion = async ({request, response, params, render}) => {
 }
 
 const showQuizQuestion = async ({request, response, params, render }) => {
-    console.log("showQuizQuestion");
     const topicId = params.tId;
     const questionId = params.qId;
 
@@ -46,8 +44,6 @@ const showQuizQuestion = async ({request, response, params, render }) => {
     }
 
     const question = await questionService.getById(questionId);
-    console.log(`quiz question`);
-    console.log(question);
     if(question && question.length > 0) {
         data.question = question[0];
     }
@@ -56,8 +52,6 @@ const showQuizQuestion = async ({request, response, params, render }) => {
     if(options && options.length > 0) {
         data.options = options
     }
-    console.log('data: ');
-    console.log(data);
     render("quizQuestion.eta", data);
 }
 

@@ -14,6 +14,7 @@ const processLogin = async ({ request, response, state, render }) => {
     email: '',
     password: ''
   }
+
   if (userFromDatabase.length != 1) {
     errorData.errors.push("Not found user with provided email!");
     errorData.email = params.get("email");

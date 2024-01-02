@@ -18,9 +18,9 @@ const addQuestion = async ({request, response, render, params, user}) => {
     }
 
     if(!question || question.length < 1 || !/\S/.test(question)) {
-        console.log("question validate fail start")
-        console.log(errorData.question.length);
-        console.log("question validate fail end")
+        // console.log("question validate fail start")
+        // console.log(errorData.question.length);
+        // console.log("question validate fail end")
         errorData.errors.push("Question must contain at least 1 character");
         render("topicSpecific.eta", errorData)
     } else {

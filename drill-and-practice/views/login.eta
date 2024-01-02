@@ -5,8 +5,9 @@
 <% if (it.errors && it.errors.length > 0) { %>
 <ul>
     <% it.errors.forEach((error) => { %>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <%= error %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
     <% }); %>
 </ul>
@@ -14,9 +15,9 @@
 
 <form class="mb-3" method="POST" action="/auth/login">
   <label class="form-label">Email</label>
-  <input class="form-control" type="email" name="email" placeholder="example@gmail.com" value="<%= it.email %>"/>
+  <input class="form-control" type="email" name="email" placeholder="example@gmail.com" required value="<%= it.email %>"/>
   <label class="form-label">Password</label>
-  <input class="form-control" type="password" name="password" placeholder="password" value="<%= it.password %>"/><br/>
+  <input class="form-control" type="password" name="password" placeholder="password" required value="<%= it.password %>"/><br/>
   <input class="btn btn-primary" type="submit" value="Login" />
 </form>
 

@@ -36,12 +36,20 @@ const registerUser = async ({ render, request, response }) => {
     data.password = password;
     render("registration.eta", data)
   } else {
-    await userService.addUser(
+    const user = await userService.findUserByEmail(email);
+    if(user && user.length > 0) {
+      const emailError = { email: {existed: "this email has been registered already" }};
+      data.errors = emailError;
+      data.email = email;
+      data.password = password;
+      render("registration.eta", data);
+    } else {
+      await userService.addUser(
         email,
         await bcrypt.hash(password),
       );
-    
-    response.redirect("/auth/login");
+      response.redirect("/auth/login"); 
+    }
   }
 
 

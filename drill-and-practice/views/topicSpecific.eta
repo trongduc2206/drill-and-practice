@@ -6,20 +6,21 @@
 <h1 class="mb-5">
 Topic: <%= it.topic.name %>
 </h1>
-<div class="container bg-light pt-2 pb-2 mb-5 rounded">
+
 <% if( it.user ) { %>
 
     <% if (it.errors && it.errors.length > 0) { %>
       <ul>
           <% it.errors.forEach((error) => { %>
-                  <div class="alert alert-danger" role="alert">
-                      <%= error %>
-                  </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= error %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
           <% }); %>
       </ul>
     <% } %>
 
-    
+<div class="container bg-light pt-2 pb-2 mb-5 rounded">
     <h2>
       <small class="text-body-secondary">Add a question</small>
     </h2>
